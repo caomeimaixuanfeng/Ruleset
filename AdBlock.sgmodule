@@ -1,7 +1,7 @@
 #!name=AdBlock
 #!desc=AdBlock
 #!system=ios
-#!updatetime=2023-12-20
+#!updatetime=2023-12-23
 
 [URL Rewrite]
 # 皮皮虾 - *.pipix.com
@@ -19,10 +19,6 @@
 ^https:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/DefaultWords$ - reject
 ^https?:\/\/app\.bilibili\.com\/x\/resource\/ip - reject
 ^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/Default - reject
-
-# 滴滴出行 - img-ys011.didistatic.com
-^https?:\/\/img-ys011\.didistatic\.com\/static\/ad_oss\/.*.jpg - reject
-^https:\/\/app\.dewu\.com\/api\/v1\/app\/advertisement - reject
 
 # 拼多多 - api.pinduoduo.com,api.yangkeduo.com
 ^https?:\/\/api\.(pinduoduo|yangkeduo)\.com\/api\/cappuccino\/splash - reject
@@ -90,6 +86,10 @@
 ^https:\/\/aag\.enmonster\.com\/apa\/index\/advert\/skin - reject
 
 [Script]
+# 淘宝 - guide-acs.m.taobao.com,poplayer.template.alibaba.com
+淘宝AdBlock_1 = type=http-response, pattern=^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.(cloudvideo\.video\.query|wireless\.home\.splash\.awesome\.get), requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/myBlockAds.js, timeout=60, script-update-interval=0
+淘宝AdBlock_2 = type=http-response, pattern=^https:\/\/poplayer\.template\.alibaba\.com\/\w+\.json, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/myBlockAds.js, timeout=60, script-update-interval=0
+
 # 哔哩哔哩 - broadcast.chat.bilibili.com,-*cdn*.biliapi.net,-*tracker*.biliapi.net,app.bilibili.com,api.live.bilibili.com,*.bilibili.com,*.bilibili.*,grpc.biliapi.net,*biliapi.net
 哔哩哔哩AdBlock_1 = type=http-response, pattern=^https?:\/\/api\.bili(api|bili)\.(net|com)\/pgc\/season\/app\/related\/recommend\?, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js, timeout=60, script-update-interval=0
 哔哩哔哩AdBlock_2 = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v\d\/ecommerce-user\/get_shopping_info\?, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js, timeout=60, script-update-interval=0
@@ -187,9 +187,9 @@ IT之家AdBlock = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\
 
 [Map Local]
 # 微信 - mp.weixin.qq.com
-^https?:\/\/mp\.weixin\.qq\.com\/mp\/(cps_product_info|getappmsgad|masonryfeed|relatedarticle)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/mp\.weixin\.qq\.com\/mp\/(cps_product_info|getappmsgad|masonryfeed|relatedarticle)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
-# 哔哩哔哩 - api.bilibili.com
+# 哔哩哔哩 - api.bilibili.com,app.bilibili.com
 ^https?:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https?:\/\/api\.bilibili\.com\/x\/vip\/ads\/material\/report data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https://api.bilibili.com/pgc/season/player/cards data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
@@ -215,8 +215,7 @@ IT之家AdBlock = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\
 ^https?:\/\/(ipv4|interface3?)\.music\.163.com\/eapi\/(ocpc\/)?ad\/.* data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https?:\/\/interface3?\.music\.163.com\/eapi\/search\/(chart\/(detail|list)|default\/keyword\/list|rcmd\/keyword\/get\/v2|specialkeyword\/get) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
-# 淘宝 - acs.m.taobao.com,guide-acs.m.taobao.com,poplayer.template.alibaba.com,guide-acs.m.taobao.com
-guide-acs.m.taobao.com, poplayer.template.alibaba.com
+# 淘宝 - acs.m.taobao.com,heic.alicdn.com,guide-acs.m.taobao.com,poplayer.template.alibaba.com
 ^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.fliggy\.crm\.screen\.(allresource|predict) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/.+?etao_advertise data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
@@ -230,7 +229,7 @@ guide-acs.m.taobao.com, poplayer.template.alibaba.com
 ^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.cainiao\.adx\.flyad\.getad data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.(volvo\.secondfloor\.getconfig|wireless\.home\.newface\.awesome\.get) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
-# 飞猪旅行 - acs.m.taobao.com
+# 飞猪旅行 - acs.m.taobao.com,api.coolapk.com
 ^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.fliggy\.crm\.screen\.(allresource|predict) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
@@ -245,7 +244,7 @@ guide-acs.m.taobao.com, poplayer.template.alibaba.com
 ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.cncreditmarket\.hit\.getactivityhit\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.longquan\.place\.getpageresourcecontent\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
-# 高德地图 - m5.amap.com
+# 高德地图 - m5.amap.com,m5-zb.amap.com,oss.amap.com,sns.amap.com
 ^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/card-service-(car-end|route-plan)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/m5\.amap\.com\/ws\/shield\/search\/new_hotword\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/tips_adv\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
@@ -256,9 +255,6 @@ guide-acs.m.taobao.com, poplayer.template.alibaba.com
 ^https:\/\/sns\.amap\.com\/ws\/msgbox\/pull_mp\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(car\/order\/content_info|order\/car\/king_toolbox_car_bubble)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(order_web\/friendly_information|tips\/onscene_visual_optimization)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
-
-# 滴滴出行 - res.xiaojukeji.com
-#https?://res\.xiaojukeji\.com\/resapi\/activity\/mget data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
 # 滴滴出行 - hd.xiaojukeji.com
 ^https:\/\/hd\.xiaojukeji\.com\/d data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
@@ -271,6 +267,9 @@ guide-acs.m.taobao.com, poplayer.template.alibaba.com
 ^https:\/\/flowplus\.meituan\.net\/v1\/mss_\w+\/linglong\/\d+\.jpg data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/img\.meituan\.net\/bizad\/bizad_brandCpt_\d+\.jpg data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/s3plus\.meituan\.net\/v1\/mss_\w+\/(brandcpt-vedio|waimai-alita)\/\w+\.zip$ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 盒马 - acs.m.taobao.com
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.wdk\.render\.querysinglepage data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
 
 # 知乎 - *.zhihu.com
 ^https:\/\/api\.zhihu\.com\/commercial_api\/(banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
@@ -286,7 +285,7 @@ guide-acs.m.taobao.com, poplayer.template.alibaba.com
 ^https:\/\/api\.zhihu\.com\/ad-style-service\/request data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 ^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
-# 阿里云盘 - api.alipan.com,member.alipan.com
+# 阿里云盘 - api.alipan.com
 ^https:\/\/api\.alipan\.com\/adrive\/v1\/file\/getTopFolders data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
 # 百度网盘 - pan.baidu.com,update.pan.baidu.com
@@ -316,10 +315,10 @@ guide-acs.m.taobao.com, poplayer.template.alibaba.com
 ^https?:\/\/static\.95508\.com\/icppweb\/images\/modelMaterial\/advertising\/202\d{5}\/.*.(png|jpg) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
 ^https?:\/\/mps\.95508\.com\/mps\/club\/cardPortals\/adv\/\d{25}\.(png|jpg) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-img.gif"
 
-# 中国农业银行 - static.abchina.com
+# 中国农业银行 - midc.cdn-static.abchina.com.cn
 ^https:\/\/midc\.cdn-static\.abchina\.com\.cn\/distributecenterimg\/file\/download\/(bdfb4|86fb9|7aa68) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
-# 中国银行 - mbs.boc.cn
+# 中国银行 - mbs.boc.cn,mlife.jf365.boc
 ^https:\/\/mbs\.boc\.cn\/ubas-mgateway-static\/images\/advertType\/.+.jpg data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
 ^https?:\/\/mlife\.jf365\.boc\.cn\/AppPrj\/FirstPic\.do\?txnId=2PIC000001 data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
 
@@ -391,4 +390,4 @@ guide-acs.m.taobao.com, poplayer.template.alibaba.com
 ^https:\/\/cdb\.meituan\.com\/marketing\/source\/getPageSlotList data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
 
 [MITM]
-hostname = %APPEND%  -lf3-cm.ecombdstatic.com,ad.12306.cn,*.58cdn.com.cn,app.58.com,pic?.ajkimg.com,list-app-m.i4.cn,api.alipan.com,member.alipan.com,pan.baidu.com,update.pan.baidu.com,api.douban.com,elemecdn.com,fuss10.elemecdn.com,www1.elecfans.com,api.m.jd.com,gab.122.gov.cn,api.coolapk.com,flowplus.meituan.net,img.meituan.net,s3plus.meituan.net,*.sgcc.com.cn,client.app.coc.10086.cn,wap.js.10086.cn,img-ys011.didistatic.com,api.wfdata.club,static.95508.com,mps.95508.com,cloud.189.cn,zt-app.go189.cn,-broadcast.chat.bilibili.com,-*cdn*.biliapi.net,-*tracker*.biliapi.net,app.bilibili.com,api.live.bilibili.com,*.bilibili.com,*.bilibili.*,grpc.biliapi.net,*biliapi.net,napi.ithome.com,api.weibo.*,*.api.weibo.*,mapi.weibo.*,*.uve.weibo.com,new.vip.weibo.cn,boot.biz.weibo.com,edith.xiaohongshu.com,www.xiaohongshu.com,*.zhihu.com,res.xiaojukeji.com,interface*.music.163.com,ipv4.music.163.com,m5.amap.com,m5-zb.amap.com,oss.amap.com,sns.amap.com,cn-acs.m.cainiao.com,guide-acs.m.taobao.com,ossgw.alicdn.com,mapi.mafengwo.cn,y.gtimg.cn,midc.cdn-static.abchina.com.cn,acs.m.taobao.com,poplayer.template.alibaba.com,*.pipix.com,api.mcd.cn,res.pizzahut.com.cn,orders.kfc.com.cn,dynamicad.kfc.com.cn,res.kfc.com.cn,3pp.starbucks.com.cn,webchatapp.fcbox.com,dsp.fcbox.com,tm-api.pin-dao.cn,vod-movie.maoyan.com,api.maoyan.com,ad.maoyan.com,wx.maoyan.com,mbs.boc.cn,mlife.jf365.boc.cn,mxsa.mxbc.net,apis.alenable.com,m.youku.com,zjdr666.com,198.16.32.198:198,aag.enmonster.com,s.jiediankeji.com,cdb.meituan.com,ecard.shenzhentong.com,ccmsupport-sz.tenpay.com,ios.wps.cn,mobile-pic.cache.iciba.com,smarket.dian.so,file.dian.so,m.client.10010.com,mp.weixin.qq.com,res.hongyibo.com.cn,api.pinduoduo.com,api.yangkeduo.com,hd.xiaojukeji.com,common.diditaxi.com.cn,freight.xiaojukeji.com,daijia.kuaidadi.com,ct.xiaojukeji.com,conf.diditaxi.com.cn,image1.ccb.com
+hostname = %APPEND%  -lf3-cm.ecombdstatic.com,ad.12306.cn,*.58cdn.com.cn,app.58.com,pic?.ajkimg.com,list-app-m.i4.cn,api.alipan.com,member.alipan.com,pan.baidu.com,update.pan.baidu.com,api.douban.com,elemecdn.com,fuss10.elemecdn.com,www1.elecfans.com,api.m.jd.com,gab.122.gov.cn,api.coolapk.com,flowplus.meituan.net,img.meituan.net,s3plus.meituan.net,*.sgcc.com.cn,client.app.coc.10086.cn,wap.js.10086.cn,api.wfdata.club,static.95508.com,mps.95508.com,cloud.189.cn,zt-app.go189.cn,-broadcast.chat.bilibili.com,-*cdn*.biliapi.net,-*tracker*.biliapi.net,app.bilibili.com,api.live.bilibili.com,*.bilibili.com,*.bilibili.*,grpc.biliapi.net,*biliapi.net,napi.ithome.com,api.weibo.*,*.api.weibo.*,mapi.weibo.*,*.uve.weibo.com,new.vip.weibo.cn,boot.biz.weibo.com,edith.xiaohongshu.com,www.xiaohongshu.com,*.zhihu.com,interface*.music.163.com,ipv4.music.163.com,m5.amap.com,m5-zb.amap.com,oss.amap.com,sns.amap.com,cn-acs.m.cainiao.com,ossgw.alicdn.com,mapi.mafengwo.cn,y.gtimg.cn,midc.cdn-static.abchina.com.cn,acs.m.taobao.com,heic.alicdn.com,guide-acs.m.taobao.com,poplayer.template.alibaba.com,*.pipix.com,api.mcd.cn,res.pizzahut.com.cn,orders.kfc.com.cn,dynamicad.kfc.com.cn,res.kfc.com.cn,3pp.starbucks.com.cn,webchatapp.fcbox.com,dsp.fcbox.com,tm-api.pin-dao.cn,vod-movie.maoyan.com,api.maoyan.com,ad.maoyan.com,wx.maoyan.com,mbs.boc.cn,mlife.jf365.boc.cn,mxsa.mxbc.net,apis.alenable.com,m.youku.com,zjdr666.com,198.16.32.198:198,aag.enmonster.com,s.jiediankeji.com,cdb.meituan.com,ecard.shenzhentong.com,ccmsupport-sz.tenpay.com,ios.wps.cn,mobile-pic.cache.iciba.com,smarket.dian.so,file.dian.so,m.client.10010.com,mp.weixin.qq.com,res.hongyibo.com.cn,api.pinduoduo.com,api.yangkeduo.com,hd.xiaojukeji.com,common.diditaxi.com.cn,freight.xiaojukeji.com,daijia.kuaidadi.com,ct.xiaojukeji.com,res.xiaojukeji.com,conf.diditaxi.com.cn
