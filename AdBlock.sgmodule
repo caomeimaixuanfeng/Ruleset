@@ -1,0 +1,413 @@
+#!name=AdBlock
+#!desc=AdBlock
+#!system=ios
+#!updatetime=2024-03-16
+
+[URL Rewrite]
+# 58同城 - *.58cdn.com.cn,app.58.com,pic?.ajkimg.com
+^https:\/\/app\.58\.com\/api\/home\/(advertising|appadv) - reject
+^https:\/\/app\.58\.com\/api\/home\/invite\/popupAdv - reject
+^https:\/\/app\.58\.com\/api\/log\/ - reject
+^https:\/\/pic\d\.ajkimg\.com\/mat\/\w+\?imageMogr\d\/format\/jpg\/thumbnail\/\d{3}x\d{4}$ - reject
+^https:\/\/.+\.58cdn\.com\.cn\/brandads - reject
+
+# 爱思助手 - list-app-m.i4.cn
+^https:\/\/list-app-m\.i4\.cn\/(adclickcb|getHotSearchList|getopfstadinfo)\.xhtml - reject
+
+# 哔哩哔哩 - app.bilibili.com
+^https:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/DefaultWords$ - reject
+^https?:\/\/app\.bilibili\.com\/x\/resource\/ip - reject
+^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/Default - reject
+
+# 电影猎手 - run.api.qyfxgd.cn,a.weilai555.com,a.ecoliving168.com,app-v1.ecoliving168.com
+^https://55dy1\.vip/vodtype/1\.html$ https://55dy1.vip/vodtype/1.html 307
+
+# 豆瓣 - api.douban.com
+^https:\/\/api\.douban\.com\/v2\/app_ads\/splash - reject
+^https:\/\/api\.douban\.com\b.*\/common_ads\? - reject
+
+# 饿了么 - elemecdn.com,fuss10.elemecdn.com,www1.elecfans.com
+^https:\/\/elemecdn.com\/.+\/sitemap - reject
+^https:\/\/fuss10.elemecdn.com\/.+\/w\/640\/h\/\d{3,4} - reject
+^https:\/\/fuss10.elemecdn.com\/.+\/w\/750\/h\/\d{3,4} - reject
+^https:\/\/fuss10.elemecdn.com\/.+\.mp4 - reject
+^https:\/\/www1.elecfans.com\/www\/delivery - reject
+
+# 京东 - api.m.jd.com
+^http:\/\/\w{32}\.jddebug\.com\/diagnose\? - reject
+
+# 交管12123 - gab.122.gov.cn
+^https:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery\/adver$ - reject
+^https:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery - reject
+
+# 皮皮虾 - *.pipix.com
+#app_name=super&([\S]*)aid=\d+ app_name=super_pro&$1aid=1412 307
+
+# 拼多多 - api.pinduoduo.com,api.yangkeduo.com
+^https?:\/\/api\.(pinduoduo|yangkeduo)\.com\/api\/cappuccino\/splash - reject
+
+# 全民K歌 - y.gtimg.cn
+^http:\/\/y\.gtimg\.cn\/music\/common\/upload\/t_k_main_page_banner\/ - reject
+
+# 优酷 - m.youku.com
+(^https?:\/\/m\.youku\.com\/.*) https://z1.m1907.cn/?jx=$1 307
+
+# 知乎 - *.zhihu.com
+^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card - reject
+^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config - reject
+^https:\/\/link\.zhihu\.com\/\?target=(https?)?(%3A|:)?(\/\/|%2F%2F)?(.*?)(&source.*)?$ http://$4 302
+^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation - reject
+^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\? - reject
+^https:\/\/www\.zhihu\.com\/api\/v4/(answers|questions)\/\d+/related-readings - reject
+^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner - reject
+^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation - reject
+
+# 怪兽充电_微信小程序 - aag.enmonster.com
+^https:\/\/aag\.enmonster\.com\/apa\/index\/advert\/skin - reject
+
+# 腾讯乘车码_微信小程序 - ccmsupport-sz.tenpay.com
+^https:\/\/ccmsupport-sz\.tenpay\.com\/cgi-bin\/common\/ccm_page_element.cgi - reject
+
+[Script]
+# 哔哩哔哩 - broadcast.chat.bilibili.com,-*cdn*.biliapi.net,-*tracker*.biliapi.net,app.bilibili.com,api.live.bilibili.com,*.bilibili.com,*.bilibili.*,grpc.biliapi.net,*biliapi.net
+哔哩哔哩AdBlock_1 = type=http-response, pattern=^https?:\/\/api\.bili(api|bili)\.(net|com)\/pgc\/season\/app\/related\/recommend\?, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_2 = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v\d\/ecommerce-user\/get_shopping_info\?, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_3 = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_4 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/list, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_5 = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/index\/feed, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_6 = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_7 = type=http-response, pattern=^https?:\/\/api\.(bilibili|biliapi)\.(com|net)\/pgc\/page\/bangumi, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_8 = type=http-response, pattern=^https?:\/\/api\.(bilibili|biliapi)\.(com|net)\/pgc\/page\/cinema\/tab\?, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_9 = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/top\/activity, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_10 = type=http-response, pattern=^https://app.bilibili.com/x/v2/search/square, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩AdBlock_11 = type=http-response, pattern=^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_proto_beta.js
+哔哩哔哩AdBlock_12 = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.community\.service\.dm\.v1\.DM\/(DmView|DmSegMobile), requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_proto_beta.js
+哔哩哔哩AdBlock_13 = type=http-response, pattern=^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_proto_beta.js
+哔哩哔哩AdBlock_14 = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.(view|viewunite)\.v1\.View\/(View|TFInfo)$, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_proto_beta.js
+哔哩哔哩AdBlock_15 = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.dynamic\.v2\.Dynamic\/Dyn(All|Video)$, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_proto_beta.js
+哔哩哔哩AdBlock_16 = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+哔哩哔哩JSON = type=http-response,pattern=^https://app\.bilibili\.com/x/v2/account/mine\?access_key,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/Bilibili.js
+哔哩哔哩Unlock = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\?, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/bilibili_json.js
+
+# 菜鸟 - cn-acs.m.cainiao.com,guide-acs.m.taobao.com
+菜鸟AdBlock_1 = type=http-response, pattern=^http:\/\/amdc\.m\.taobao\.com\/amdc\/mobileDispatch, script-path=https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/Header.js
+菜鸟AdBlock_2 = type=http-response, pattern=^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.m?show\.cn, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/cainiao.js
+菜鸟AdBlock_3 = type=http-response, pattern=^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.(pickup\.empty\.page|protocol\.homepage)\.get\.cn, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/cainiao.js
+菜鸟AdBlock_4 = type=http-response, pattern=^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.nbfriend\.message\.conversation\.list\.cn, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/cainiao.js
+菜鸟AdBlock_5 = type=http-response, pattern=^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.mshow, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/cainiao.js
+
+# 滴滴出行 - hd.xiaojukeji.com,common.diditaxi.com.cn,freight.xiaojukeji.com,daijia.kuaidadi.com,ct.xiaojukeji.com,res.xiaojukeji.com,conf.diditaxi.com.cn
+滴滴出行AdBlock_1 = type=http-response, pattern=^https:\/\/common\.diditaxi\.com\.cn\/common\/v\d\/usercenter\/me, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_2 = type=http-response, pattern=^https:\/\/daijia\.kuaidadi\.com\/gateway, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_3 = type=http-response, pattern=^https:\/\/freight\.xiaojukeji\.com\/gateway, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_4 = type=http-response, pattern=^https:\/\/daijia\.kuaidadi\.com:443\/gateway, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_5 = type=http-response, pattern=^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/xpget, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_6 = type=http-response, pattern=^https:\/\/ct\.xiaojukeji\.com\/agent\/v3\/feeds, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_7 = type=http-response, pattern=^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_8 = type=http-response, pattern=^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v\d\/other\/fast, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_9 = type=http-response, pattern=^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_10 = type=http-response, pattern=^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+滴滴出行AdBlock_11 = type=http-response, pattern=^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v\d\/core, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
+
+# 电影猎手 - run.api.qyfxgd.cn,a.weilai555.com,a.ecoliving168.com,app-v1.ecoliving168.com
+电影猎手AdBlock = type=http-response, pattern=^https?:.*\/api\/v\d\/movie\/index_recommend\?pack=[^&]+&signature=[^&]+$, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/DYLS.js
+
+# 广告联盟 - api-access.pangolin-sdk-toutiao*.com
+#广告联盟AdBlock = type=http-response,pattern=^https:\/\/api-access\.pangolin-sdk-toutiao(\d|-\w)??\.com\/api\/ad\/union\/sdk\/settings,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Keywos/rule/main/JS/adsdk_chj.js
+
+# 高德地图 - m5.amap.com,m5-zb.amap.com,oss.amap.com,sns.amap.com
+高德地图AdBlock_1 = type=http-response, pattern=^http:\/\/amdc\.m\.taobao\.com\/amdc\/mobileDispatch$, script-path=https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/Header.js
+高德地图AdBlock_2 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/perception\/drive\/routePlan\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_3 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search\/(common\/coupon\/info|poi\/detail)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_4 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_business\/process\/marketingOperationStructured\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_5 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/(homepage|mps|search\/sp|sug|tips_operation_location)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_6 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/(card-service-plan-home|main-page)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_7 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_8 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaasv3\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_9 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search\/nearbyrec_smart\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_10 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_11 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(car\/order\/content_info|order_web\/friendly_information)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_12 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/promotion-web\/resource(\/home)?\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+高德地图AdBlock_13 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/sharedtrip\/taxi\/order_detail_car_tips\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
+
+# 小红书 - edith.xiaohongshu.com,www.xiaohongshu.com
+小红书AdBlock_1 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v2\/(note\/widgets|user\/followings\/followfeed), requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/xiaohongshu.js
+小红书AdBlock_2 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/(banner|hot)_list, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/xiaohongshu.js
+小红书AdBlock_3 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v4\/search\/(hint|trending)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/xiaohongshu.js
+小红书AdBlock_4 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v10\/search\/notes\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/xiaohongshu.js
+小红书AdBlock_5 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/system_service\/config\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/xiaohongshu.js
+小红书AdBlock_6 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v2\/system_service\/splash_config, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/xiaohongshu.js
+
+# IT之家 - napi.ithome.com
+IT之家AdBlock = type=http-response,pattern=^https:\/\/napi\.ithome\.com\/api\/(news\/index|topmenu\/getfeeds\?),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Keywos/rule/main/JS/surgeithome.js
+
+# 京东 - api.m.jd.com
+京东JSON = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/jingdong.js
+
+# 淘宝 - guide-acs.m.taobao.com,poplayer.template.alibaba.com
+淘宝AdBlock_1 = type=http-response, pattern=^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.(cloudvideo\.video\.query|wireless\.home\.splash\.awesome\.get), requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/myBlockAds.js
+淘宝AdBlock_2 = type=http-response, pattern=^https:\/\/poplayer\.template\.alibaba\.com\/\w+\.json, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/myBlockAds.js
+
+# 铁路12306 - ad.12306.cn,mobile.12306.cn
+铁路12306AdBlock_1 = type=http-request,pattern=^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList$,requires-body=true,max-size=3145728,script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/12306.js
+铁路12306AdBlock_2 = type=http-response,pattern=^https:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/mgw\.htm$,script-path=https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/Header.js
+
+# 微博 - *.weibo.cn,*.weibo.com,weibo.com
+微博AdBlock_1 = type=http-response, pattern=^https?:\/\/api\.weibo\.cn\/\d\/groups\/allgroups\/v\d, requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/weibo_json.js
+微博AdBlock_2 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/groups\/allgroups\/v2\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_3 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/(cardlist|page)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_4 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/comments\/build_comments\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_5 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/(container\/asyn|flowlist)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_6 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/friendships\/destroy\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_7 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/profile\/(container_timeline|dealatt|me|statuses\/tab|userinfo)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_8 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/(container_timeline(_hot|_topic|_topicpage|_unread)?|unread_hot_timeline)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_9 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/(extend|show)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_10 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/video\/tiny_stream_video_list\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_11 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/!\/huati\/discovery_home_bottom_channels\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_12 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/direct_messages\/user_list\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_13 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/messageflow\/notice\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_14 = type=http-response, pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/search/(finder|container_timeline|container_discover), requires-body=true, max-size=3145728, script-path=https://github.com/ddgksf2013/Scripts/raw/master/weibo_json.js
+微博AdBlock_15 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/searchall\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_16 = type=http-response, pattern=^https:\/\/bootpreload\.uve\.weibo\.com\/v1\/ad\/preload, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_17 = type=http-response, pattern=^https:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_18 = type=http-response, pattern=^https:\/\/wbapp\.uve\.weibo\.com\/(preload\/get_ad|wbapplua\/wbpullad\.lua)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+微博AdBlock_19 = type=http-response, pattern=^https:\/\/new\.vip\.weibo\.cn\/aj\/appicon\/list\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
+
+# 知乎 - *.zhihu.com
+知乎AdBlock_1 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+知乎AdBlock_2 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/(moments_v3|topstory\/hot-lists\/total|topstory\/recommend), requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+知乎AdBlock_3 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+知乎AdBlock_4 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?, requires-body=true, max-size=3145728, script-path=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/CommonScript/replace-body.js, argument=""recommend_queries":\{.+\}->"recommend_queries":{}"
+知乎AdBlock_5 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/next-(bff|data|render)\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+知乎AdBlock_6 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/questions\/\d+(\/answers|\/feeds|\?include=), requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+知乎AdBlock_7 = type=http-response, pattern=^https:\/\/www\.zhihu\.com\/api\/v4\/(articles|answers)\/\d+\/recommendations?\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+知乎AdBlock_8 = type=http-response, pattern=^https:\/\/appcloud2\.zhihu\.com\/v3\/config, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+知乎AdBlock_9 = type=http-response, pattern=^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?, requires-body=true, max-size=3145728, script-path=https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/zhihu.js
+
+[Map Local]
+# 哔哩哔哩 - api.bilibili.com,app.bilibili.com
+^https?:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/api\.bilibili\.com\/x\/vip\/ads\/material\/report data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https://api.bilibili.com/pgc/season/player/cards data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https://app.bilibili.com/x/v2/splash/show data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/(Flash|ListFlash|GetActivityTab) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 菜鸟 - cn-acs.m.cainiao.com,guide-acs.m.taobao.com
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.adkeyword\.get\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.cncommunity\.my\.station\.query\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(batch\.show\.v2|index)\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbopen\.miniapp\.recommend\.cpc\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbmensa\.research\.researchservice\.(acquire|event|close)\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.homepage\.merge\.get\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.cnactivitycenter data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.cncreditmarket\.hit\.getactivityhit\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.longquan\.place\.getpageresourcecontent\.cn data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# CTMBuddy - www.ctm.net
+^https?:\/\/www\.ctm\.net\/crm_api\/crm-cms-server\/g\/advertise\.* data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 电影猎手 - run.api.qyfxgd.cn,a.weilai555.com,a.ecoliving168.com,app-v1.ecoliving168.com
+^http:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+){1,3}(:\d+)?\/.*?\/v\d\/(version|notice\?|top_notice\?|advert\?position=[^2]+) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https:\/\/.*\/nj_vpic\/.*$ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/community\.image\.video\.qpic\.cn.*$ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https?:\/\/\S*\/(ad|advert|AD|Advert)\/\S*$ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/.*\/api\/v\d\/app\/check_update\?pack=[a-zA-Z0-9\/%+]*&signature=[a-zA-Z0-9]*$ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/vpic\.cms\.qq\.com data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https?:\/\/hmma\.baidu\.com data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https?:\/\/bgg\.baidu\.com data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 滴滴出行 - hd.xiaojukeji.com
+^https:\/\/hd\.xiaojukeji\.com\/d data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 大众点评 - img.meituan.net
+^https:\/\/img\.meituan\.net\/dpmobile\/.+93241\.png data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/img\.meituan\.net\/dpmobile\/.*.(gif|jpg) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 飞猪旅行 - acs.m.taobao.com,api.coolapk.com
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.fliggy\.crm\.screen\.(allresource|predict) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 高德地图 - m5.amap.com,m5-zb.amap.com,oss.amap.com,sns.amap.com
+^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/card-service-(car-end|route-plan)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/m5\.amap\.com\/ws\/shield\/search\/new_hotword\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/tips_adv\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/oss\.amap\.com\/ws\/banner\/lists\/\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/main-page-(assets|location)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/m5\.amap\.com\/ws\/(mapapi\/hint_text\/offline_data|message\/notice\/list|shield\/search\/new_hotword)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/m5\.amap\.com\/ws\/shield\/scene\/recommend\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/m5\.amap\.com\/ws\/valueadded\/weather\/v2\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/sns\.amap\.com\/ws\/msgbox\/pull_mp\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(order\/car\/king_toolbox_car_bubble|tips\/onscene_visual_optimization)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 花小猪打车 - res.hongyibo.com.cn
+^https:\/\/res\.hongyibo\.com\.cn\/os\/gs\/resapi\/activity\/mget\?_t data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 盒马 - acs.m.taobao.com
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.wdk\.render\.querysinglepage data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https?:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.render\.querysinglepage data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 美团 - flowplus.meituan.net,img.meituan.net,s3plus.meituan.net
+^http:\/\/wmapi\.meituan\.com\/api\/v7\/(loadInfo|openscreen|startpicture)\?data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/flowplus\.meituan\.net\/v1\/mss_\w+\/linglong\/\d+\.jpg data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/img\.meituan\.net\/bizad\/bizad_brandCpt_\d+\.jpg data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/s3plus\.meituan\.net\/v1\/mss_\w+\/(brandcpt-vedio|waimai-alita)\/\w+\.zip$ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 马蜂窝 - mapi.mafengwo.cn
+^https:\/\/mapi\.mafengwo\.cn\/ad\/get_launch_ad_list\/(v|v2) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 全民K歌 - y.gtimg.cn
+^https:\/\/wallpaper-\d+\.file\.myqcloud\.com\/dsl\/ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/wallpaper-\d+\.file\.myqcloud\.com\/hikari\/ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/amsweb-cdn-\S+-\d+\.file\.myqcloud\.com\/video\/ad_profile\/ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/adsmind\.gdtimg\.com\/ads_svp_video.*(jpeg|jpg|png|webp) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-img.gif"
+^https:\/\/adsmind\.gdtimg\.com\/ads_svp_video.*mp4 data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-img.gif"
+
+# 淘宝 - acs.m.taobao.com,heic.alicdn.com,guide-acs.m.taobao.com,poplayer.template.alibaba.com
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.fliggy\.crm\.screen\.(allresource|predict) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/.+?etao_advertise data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimusic\.common\.mobileservice\.startinit data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.etao\.noah\.query\/.+tao_splash data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.taobao\.idle\.home\.welcome data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/heic\.alicdn\.com\/imgextra\/i\d\/\d*\/?[\w!]+-\d-(octopus|tps-1125-1602|tps-1080-1920)\.(jp|pn)g_(1\d{3}|9\d{2})x(1\d{3}|9\d{2})q[59]0 data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.cainiao\.adx\.flyad\.getad data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.(volvo\.secondfloor\.getconfig|wireless\.home\.newface\.awesome\.get) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 腾讯视频 - ossgw.alicdn.com
+^https:\/\/ossgw\.alicdn\.com\/creatives-assets/prod/feupload/user data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 网易云音乐 - interface*.music.163.com,ipv4.music.163.com
+^https?:\/\/(ipv4|interface3?)\.music\.163.com\/eapi\/(ocpc\/)?ad\/.* data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/interface3?\.music\.163.com\/eapi\/search\/(chart\/(detail|list)|default\/keyword\/list|rcmd\/keyword\/get\/v2|specialkeyword\/get) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 微信 - mp.weixin.qq.com
+^https:\/\/mp\.weixin\.qq\.com\/mp\/(cps_product_info|getappmsgad|masonryfeed|relatedarticle)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 微博 - *.weibo.cn,*.weibo.com,weibo.com
+^https:\/\/api\.weibo\.cn\/2\/(ug\/checkin\/list|push\/daily)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/!\/live\/media_homelist\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/comments\/bullet_screens\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/photo\/info\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/statuses\/(container_positive|push_info)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/vote\/get_vote_detail\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/!\/chaohua\/discovery\/home_bottom\/switch\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/!\/huati\/(discovery_home_bottom_getdotinfo|mobile_discovery_searchchange)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/!\/wbox\/\w+\/(home_bottom_modal|interest_category)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/search\/container_discover\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/hot\/hours_spotlight\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/2\/video\/redpacket\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.weibo\.cn\/!\/sug\/list\/finderchange\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/bootrealtime\.uve\.weibo\.com\/v[23]\/ad\/realtime data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/card\.weibo\.com\/article\/m\/aj\/(reward|uvead)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/weibo\.com\/ttarticle\/x\/m\/aj\/(reward|uvead)\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/(get-lbs-cell-info\.php|sdkconfig\.php) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 小红书 - edith.xiaohongshu.com,www.xiaohongshu.com
+^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/surprisebox\/(get_style|open|submit_action) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/www\.xiaohongshu\.com\/api\/marketing\/box\/trigger\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v3\/note\/guide\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/www\.xiaohongshu\.com\/api\/sns\/(v1\/ads\/resource|v2\/hey\/\w+\/hey_gallery) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 优酷 - ossgw.alicdn.com
+^https:\/\/ossgw\.alicdn\.com\/creatives-assets\/prod\/feupload\/user* data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 知乎 - *.zhihu.com
+^https:\/\/api\.zhihu\.com\/commercial_api\/(banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/(moments\/lastread|drama\/hot-drama-list) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/root\/window data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/me\/guides data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/search\/preset_words data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(article|answer)\/\d+ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/comment_v5\/(articles|answers)\/\d+\/list-headers data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\? data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.zhihu\.com\/ad-style-service\/request data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 中国广发银行 - static.95508.com,mps.95508.com,unionsr.chinalifeonline.com.cn
+^https?:\/\/static\.95508\.com\/icppweb\/images\/modelMaterial\/accurate\/202\d{5}\/.*.(png|jpg) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https?:\/\/static\.95508\.com\/icppweb\/images\/modelMaterial\/advertising\/202\d{5}\/.*.(png|jpg) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https?:\/\/mps\.95508\.com\/mps\/club\/cardPortals\/adv\/\d{25}\.(png|jpg) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-img.gif"
+^https:\/\/unionsr\.chinalifeonline\.com\.cn\/gslm\/upload\/ data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 中国农业银行 - midc.cdn-static.abchina.com.cn
+^https:\/\/midc\.cdn-static\.abchina\.com\.cn\/distributecenterimg\/file\/download\/(bdfb4|86fb9|7aa68) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 中国银行 - mbs.boc.cn,mlife.jf365.boc
+^https:\/\/mbs\.boc\.cn\/ubas-mgateway-static\/images\/advertType\/.+.jpg data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+^https?:\/\/mlife\.jf365\.boc\.cn\/AppPrj\/FirstPic\.do\?txnId=2PIC000001 data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 中国建设银行 - image1.ccb.com
+^http:\/\/image1\.ccb\.com\/newsinfo\/eBranch\/check\/(nf\/newfin\/activity|po\/poortheme\/activity)\/\w+\.png data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 中国联通 - m.client.10010.com
+^https?:\/\/m\.client\.10010\.com\/mobileService\/customer\/accountListData\.htm data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https?:\/\/m\.client\.10010\.com\/uniAdmsInterface\/getWelcomeAd data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 中国移动 - client.app.coc.10086.cn
+^https:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/(explorePage\/getAdverList|init\/startInit) data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 中国电信 - zt-app.go189.cn
+^https?:\/\/zt-app\.go189\.cn\/zt-app\/welcome\/.*?Animation data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-img.gif"
+
+# 必胜客_微信小程序 - res.pizzahut.com.cn
+^https:\/\/res\.pizzahut\.com\.cn\/CRM data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 丰巢_微信小程序 - webchatapp.fcbox.com,dsp.fcbox.com
+^https:\/\/webchatapp\.fcbox\.com\/fcboxactivityweb\/api\/v2\/clientPage data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/dsp\.fcbox\.com data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 广州地铁乘车码_微信小程序 - apis.alenable.com
+^https:\/\/apis\.alenable\.com\/mall\/v1\/api\/mall\/skin\/user\/get data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/apis\.alenable\.com\/ycx\/v1\/api\/adPut data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 街电_微信小程序 - s.jiediankeji.com
+^https:\/\/s\.jiediankeji\.com\/adv data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 肯德基_微信小程序 - orders.kfc.com.cn,dynamicad.kfc.com.cn,res.kfc.com.cn
+^https:\/\/orders\.kfc\.com\.cn\/preorder-portal\/api\/v2\/coupon data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/dynamicad\.kfc\.com\.cn\/api data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/res\.kfc\.com\.cn\/CRM\/kfcad\/custom_v2\/wxapp data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/orders\.kfc\.com\.cn\/preorder-portal\/api\/v2\/activity data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 麦当劳_微信小程序 - api.mcd.cn
+^https:\/\/api\.mcd\.cn\/bff\/portal\/home\/hotActivity data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 蜜雪冰城_微信小程序 - mxsa.mxbc.net
+^https:\/\/mxsa\.mxbc\.net\/api\/v1\/adinfo\/adplace\/query data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 美团充电宝_微信小程序 - cdb.meituan.com
+^https:\/\/cdb\.meituan\.com\/marketing\/source\/getPageSlotList data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 猫眼_微信小程序 - vod-movie.maoyan.com,api.maoyan.com,ad.maoyan.com,wx.maoyan.com
+^https:\/\/vod-movie\.maoyan\.com\/vod\/video\/onlineMovies\.json data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/movie\/wonderShow data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/performances\/calendar\/0 data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/performances\/rob\/main data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/celebrityBasicList\/query data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/recommend\/performances data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/api\.maoyan\.com\/sns\/common\/feed\/channel\/v2\/list\.json data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/ad\.maoyan\.com\/api\/position\/detail data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 奈雪点单_微信小程序 - tm-api.pin-dao.cn
+^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/index\/activeConfig\/v2 data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/resource\/config\/homeBannerNodes data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 深圳通_微信小程序 - ecard.shenzhentong.com
+^https?:\/\/ecard\.shenzhentong\.com\/wxweb\/bwxppub2\/QryAdvertList\.do data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-200.txt"
+
+# 小电充电_微信小程序 - smarket.dian.so,file.dian.so
+^https:\/\/smarket\.dian\.so data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/file\.dian\.so\/c\/leto data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+# 星巴克_微信小程序 - 3pp.starbucks.com.cn
+^https:\/\/3pp\.starbucks\.com\.cn\/wxmem\/popup data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/3pp\.starbucks\.com\.cn\/wxmem\/index\/banner data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+^https:\/\/3pp\.starbucks\.com\.cn\/wxmem\/index\/global data="https://raw.githubusercontent.com/caomeimaixuanfeng/Ruleset/master/reject-dict.json"
+
+[MITM]
+hostname = %APPEND%  -lf3-cm.ecombdstatic.com,ad.12306.cn,mobile.12306.cn,*.58cdn.com.cn,app.58.com,pic?.ajkimg.com,list-app-m.i4.cn,api.alipan.com,api.douban.com,elemecdn.com,fuss10.elemecdn.com,www1.elecfans.com,api.m.jd.com,gab.122.gov.cn,api.coolapk.com,flowplus.meituan.net,img.meituan.net,s3plus.meituan.net,*.sgcc.com.cn,client.app.coc.10086.cn,wap.js.10086.cn,static.95508.com,mps.95508.com,unionsr.chinalifeonline.com.cn,zt-app.go189.cn,-broadcast.chat.bilibili.com,-*cdn*.biliapi.net,-*tracker*.biliapi.net,app.bilibili.com,api.live.bilibili.com,*.bilibili.com,*.bilibili.*,grpc.biliapi.net,*biliapi.net,napi.ithome.com,edith.xiaohongshu.com,www.xiaohongshu.com,*.zhihu.com,interface*.music.163.com,ipv4.music.163.com,m5.amap.com,m5-zb.amap.com,oss.amap.com,sns.amap.com,cn-acs.m.cainiao.com,ossgw.alicdn.com,mapi.mafengwo.cn,midc.cdn-static.abchina.com.cn,acs.m.taobao.com,heic.alicdn.com,guide-acs.m.taobao.com,poplayer.template.alibaba.com,api.mcd.cn,res.pizzahut.com.cn,orders.kfc.com.cn,dynamicad.kfc.com.cn,res.kfc.com.cn,3pp.starbucks.com.cn,webchatapp.fcbox.com,dsp.fcbox.com,tm-api.pin-dao.cn,vod-movie.maoyan.com,api.maoyan.com,ad.maoyan.com,wx.maoyan.com,mbs.boc.cn,mlife.jf365.boc.cn,mxsa.mxbc.net,apis.alenable.com,m.youku.com,aag.enmonster.com,s.jiediankeji.com,cdb.meituan.com,ecard.shenzhentong.com,ccmsupport-sz.tenpay.com,smarket.dian.so,file.dian.so,m.client.10010.com,mp.weixin.qq.com,res.hongyibo.com.cn,api.pinduoduo.com,api.yangkeduo.com,hd.xiaojukeji.com,common.diditaxi.com.cn,freight.xiaojukeji.com,daijia.kuaidadi.com,ct.xiaojukeji.com,res.xiaojukeji.com,conf.diditaxi.com.cn,*.weibo.cn,*.weibo.com,weibo.com,run.api.qyfxgd.cn,a.weilai555.com,a.ecoliving168.com,app-v1.ecoliving168.com,www.ctm.net,wallpaper-1258344696.file.myqcloud.com,amsweb-cdn-gz-1258344696.file.myqcloud.com
