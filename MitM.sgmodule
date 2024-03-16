@@ -1,0 +1,7 @@
+#!name=捕获流量
+#!desc=在端口443上的所有主机名执行MitM
+#!system=ios
+#!updatetime=2023-10-31
+
+[MITM]
+hostname = -*.apple.com, -*.icloud.com, -*.mzstatic.com, -*.crashlytics.com, -*.facebook.com, -*.instagram.com, *
